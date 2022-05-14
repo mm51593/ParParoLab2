@@ -1,25 +1,46 @@
 #include <vector>
-#include "player.hpp"
-#include "board.hpp"
+#include <iostream>
+#include "game.hpp"
 
-class Game
+Player Game::switch_player()
 {
-	private:
-		Board board;
-		std::vector<Player> players;
-		int current_player_index;
-		int board_width;
+	++player_iter;
+	if (player_iter == players->end())
+	{
+		player_iter = players->begin();
+	}
+	return *player_iter;
+}
 
-		void switch_player()
-		{
-			current_player_index = (current_player_index + 1) % players.size();
-		}
+Game::Game(std::vector<Player> *players, int board_width, int winning_streak) : 
+	players(players), winning_streak(winning_streak), last_move_streak(0)
+{
+	board = new Board(board_width);
+	player_iter = players->begin();
+}
 
-	public:
-		Game(vector<Player> players, int board_width) : 
-			players(players), current_player_index(0), board_width(board_width)
-		{
-		}
+void Game::play_move(int column)
+{
+	int drop_location[2];
+	char player_symbol = switch_player().get_symbol();
+	board->drop_token(player_symbol, column, drop_location);
 
-		void play_move();
+	last_move_streak = board->get_longest_streak(drop_location[0], drop_location[1]);
+	
+	return;
+}
+
+bool Game::check_victory()
+{
+	return last_move_streak >= winning_streak;
+}
+
+Player Game::get_current_player()
+{
+	return *player_iter;
+}
+
+void Game::print_board()
+{
+	board->print_board();
 }

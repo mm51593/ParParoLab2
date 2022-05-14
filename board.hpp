@@ -1,5 +1,8 @@
 #include <vector>
 
+#ifndef BOARD_IN
+#define BOARD_IN
+
 #define SEARCH_VECTORS_SIZE 4
 #define DIMENSION 2
 
@@ -24,3 +27,5 @@ class Board
 
 		unsigned get_longest_streak(int row, int column);
 };
+
+#endif

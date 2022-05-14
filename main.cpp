@@ -1,25 +1,34 @@
 #include <iostream>
 #include <vector>
 #include "board.hpp"
+#include "player.hpp"
+#include "game.hpp"
+#include "player_input.hpp"
+
+#define BOARD_WIDTH 7
+#define WINNING_STREAK 4
 
 int main(void)
 {
-    char tokens[] = {'o', 'x'};
+    PlayerInput *PI = new PlayerInput();
+    Player player1("Player1", 'x', new PlayerInput());
+    Player player2("Player2", 'o', new PlayerInput());
 
-    Board b(7);
+    std::vector<Player> *players = new std::vector<Player>();
+    players->push_back(player1);
+    players->push_back(player2);
 
-    int turn = 0;
-    int column;
+    Game game(players, BOARD_WIDTH, WINNING_STREAK);
 
-    int drop_location[DIMENSION];
-    while (true)
+    do
     {
         std::cout << std::endl;
-        b.print_board();
+        game.print_board();
         std::cout << std::endl << "Input column: ";
-        std::cin >> column;
-        b.drop_token(tokens[turn++ % 2], column, drop_location);
-        std::cout << "Streak: " << b.get_longest_streak(drop_location[0], drop_location[1]) << std::endl;
-    }
+        game.play_move(game.get_current_player().get_input());
+    } while (!game.check_victory());
+
+    game.print_board();
+    std::cout << game.get_current_player().get_name() << " wins!" << std::endl;
     return 0;
 }

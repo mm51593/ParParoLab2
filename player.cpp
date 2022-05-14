@@ -1,17 +1,21 @@
-#include "game.hpp"
+#include "player.hpp"
+#include <string>
 
-class Player
+Player::Player(std::string name, char symbol, InputMethod *IM) : name(name), symbol(symbol), IM(IM)
 {
-	private:
-		char symbol;
+}
 
-	public:
-		Player(char symbol) : symbol(symbol)
-		{
-		}
-	
-		char get_symbol()
-		{
-			return this->symbol;
-		}
-};
+char Player::get_symbol()
+{
+	return symbol;
+}
+
+std::string Player::get_name()
+{
+	return name;
+}
+
+int Player::get_input()
+{
+	return IM->return_input();
+}
