@@ -1,7 +1,7 @@
-#include <vector>
-
 #ifndef BOARD_IN
 #define BOARD_IN
+
+#include <vector>
 
 #define SEARCH_VECTORS_SIZE 4
 #define DIMENSION 2
@@ -26,6 +26,8 @@ class Board
 		void print_board();
 
 		unsigned get_longest_streak(int row, int column);
+
+		void copy(Board *other);
 };
 
 #endif

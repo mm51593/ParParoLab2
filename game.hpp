@@ -1,32 +1,41 @@
 #include <vector>
 #include <iterator>
-#include "player.hpp"
-#include "board.hpp"
 
 #ifndef GAME_IN
 #define GAME_IN
+
+/*#include "player.hpp"
+#include "board.hpp"*/
+
+class Player;
+class Board;
 
 class Game
 {
 	private:
 		Board *board;
         int winning_streak;
-        int last_move_streak;
+		int board_width;
 		std::vector<Player> *players;
         std::vector<Player>::iterator player_iter;
 
-		Player switch_player();
+		void switch_player();
+		bool check_victory(unsigned streak);
 
 	public:
 		Game(std::vector<Player> *players, int board_width, int winning_streak);
 
-		void play_move(int column);
+		~Game();
 
-        bool check_victory();
+		int get_board_width();
 
-        Player get_current_player();
+		bool play_move(int column);
+
+        Player *get_current_player();
 
         void print_board();
+
+		void copy(Game *other);
 };
 
 #endif

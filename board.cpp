@@ -115,3 +115,9 @@ unsigned Board::get_longest_streak(int row, int column)
 
 	return maximum_streak;
 }
+
+void Board::copy(Board *other)
+{
+	other->rows = this->rows;
+	other->width = this->width;
+}
