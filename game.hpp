@@ -15,9 +15,8 @@ class Game
 	private:
 		Board *board;
         int winning_streak;
-		int board_width;
 		std::vector<Player> *players;
-        std::vector<Player>::iterator player_iter;
+		int current_player_index;
 
 		void switch_player();
 		bool check_victory(unsigned streak);
@@ -27,15 +26,19 @@ class Game
 
 		~Game();
 
-		int get_board_width();
+		Board *get_board();
 
-		bool play_move(int column);
+		bool play_move();
 
         Player *get_current_player();
 
         void print_board();
 
 		void copy(Game *other);
+
+		void set_players(std::vector<Player> *new_players);
+
+		std::vector<Player> *get_players();
 };
 
 #endif

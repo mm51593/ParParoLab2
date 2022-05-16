@@ -121,3 +121,8 @@ void Board::copy(Board *other)
 	other->rows = this->rows;
 	other->width = this->width;
 }
+
+int Board::get_width()
+{
+	return width;
+}

@@ -6,16 +6,16 @@
 
 void Game::switch_player()
 {
-	++player_iter;
-	if (player_iter == players->end())
+	++current_player_index;
+	if (current_player_index >= players->size())
 	{
-		player_iter = players->begin();
+		current_player_index = 0;
 	}
 	return;
 }
 
 Game::Game(std::vector<Player> *players, int board_width, int winning_streak) : 
-	players(players), board_width(board_width), winning_streak(winning_streak)
+	players(players), winning_streak(winning_streak), current_player_index(0)
 {
 	for (auto it = players->begin(); it != players->end(); it++)
 	{
@@ -23,7 +23,6 @@ Game::Game(std::vector<Player> *players, int board_width, int winning_streak) :
 	}
 
 	board = new Board(board_width);
-	player_iter = players->begin();
 }
 
 Game::~Game()
@@ -31,15 +30,18 @@ Game::~Game()
 	delete board;
 }
 
-int Game::get_board_width()
+Board *Game::get_board()
 {
-	return board_width;
+	return board;
 }
 
-bool Game::play_move(int column)
+bool Game::play_move()
 {
-	int drop_location[2];
+	int column = get_current_player()->get_input();
 	char player_symbol = get_current_player()->get_symbol();
+
+	int drop_location[2];
+	
 	board->drop_token(player_symbol, column, drop_location);
 
 	unsigned last_move_streak = board->get_longest_streak(drop_location[0], drop_location[1]);
@@ -61,7 +63,7 @@ bool Game::check_victory(unsigned streak)
 
 Player *Game::get_current_player()
 {
-	return &(*player_iter);
+	return &players->at(current_player_index);
 }
 
 void Game::print_board()
@@ -73,7 +75,17 @@ void Game::copy(Game *other)
 {
 	other->winning_streak = this->winning_streak;
 	other->players = this->players;
-	other->player_iter = this->player_iter;
+	other->current_player_index = this->current_player_index;
 
 	this->board->copy(other->board);
+}
+
+void Game::set_players(std::vector<Player> *new_players)
+{
+	this->players = new_players;
+}
+
+std::vector<Player> *Game::get_players()
+{
+	return players;
 }

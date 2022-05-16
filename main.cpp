@@ -21,16 +21,16 @@ int main(void)
 
     Game game(players, BOARD_WIDTH, WINNING_STREAK);
 
-    std::cout << game.get_current_player()->get_name() << std::endl;
-
-    do
+    do 
     {
         std::cout << std::endl;
-        game.print_board();
+	    game.print_board();
         std::cout << std::endl << "Input column: ";
-    } while (!game.play_move(game.get_current_player()->get_input()));
+    } while(!game.play_move());
 
+    std::cout << std::endl;
     game.print_board();
     std::cout << game.get_current_player()->get_name() << " wins!" << std::endl;
+
     return 0;
 }

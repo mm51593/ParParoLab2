@@ -1,6 +1,7 @@
 #include "player.hpp"
 #include "input_method.hpp"
 #include <string>
+#include <iostream>
 
 Player::Player(std::string name, char symbol, InputMethod *IM) : name(name), symbol(symbol), IM(IM)
 {
@@ -19,7 +20,8 @@ std::string Player::get_name()
 
 int Player::get_input()
 {
-	return IM->return_input();
+	int temp = IM->return_input();
+	return temp;
 }
 
 void Player::set_game(Game *game)

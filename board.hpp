@@ -28,6 +28,8 @@ class Board
 		unsigned get_longest_streak(int row, int column);
 
 		void copy(Board *other);
+
+		int get_width();
 };
 
 #endif
