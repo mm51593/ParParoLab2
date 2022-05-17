@@ -9,8 +9,9 @@ class Game;
 class TreeNode
 {
     public:
-        Game *value;
+        Game *game;
         std::vector<TreeNode*> children;
+        float score = 0;
 };
 
 #endif

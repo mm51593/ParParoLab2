@@ -30,6 +30,11 @@ Game::~Game()
 	delete board;
 }
 
+int Game::get_winning_streak()
+{
+	return winning_streak;
+}
+
 Board *Game::get_board()
 {
 	return board;
@@ -43,6 +48,8 @@ bool Game::play_move()
 	int drop_location[2];
 	
 	board->drop_token(player_symbol, column, drop_location);
+
+	moves.push_back(column);
 
 	unsigned last_move_streak = board->get_longest_streak(drop_location[0], drop_location[1]);
 	
@@ -77,6 +84,11 @@ void Game::copy(Game *other)
 	other->players = this->players;
 	other->current_player_index = this->current_player_index;
 
+	for (auto iter = this->moves.begin(); iter != this->moves.end(); iter++)
+	{
+		other->moves.push_back(*iter);
+	}
+
 	this->board->copy(other->board);
 }
 
@@ -88,4 +100,9 @@ void Game::set_players(std::vector<Player> *new_players)
 std::vector<Player> *Game::get_players()
 {
 	return players;
+}
+
+std::vector<int> *Game::get_moves()
+{
+	return &moves;
 }

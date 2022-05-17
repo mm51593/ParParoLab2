@@ -17,6 +17,7 @@ class Game
         int winning_streak;
 		std::vector<Player> *players;
 		int current_player_index;
+		std::vector<int> moves;
 
 		void switch_player();
 		bool check_victory(unsigned streak);
@@ -25,6 +26,8 @@ class Game
 		Game(std::vector<Player> *players, int board_width, int winning_streak);
 
 		~Game();
+
+		int get_winning_streak();
 
 		Board *get_board();
 
@@ -39,6 +42,8 @@ class Game
 		void set_players(std::vector<Player> *new_players);
 
 		std::vector<Player> *get_players();
+
+		std::vector<int> *get_moves();
 };
 
 #endif

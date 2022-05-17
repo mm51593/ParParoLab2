@@ -12,6 +12,7 @@ class InputMethod
     protected:
         Game *game = nullptr;
         Player *player = nullptr;
+        int rank_in_game = 0;
 
     public:
         virtual int return_input() = 0;
@@ -22,6 +23,10 @@ class InputMethod
         void set_player(Player *player)
         {
             this->player = player;
+        }
+        void set_rank_in_game(int rank)
+        {
+            rank_in_game = rank;
         }
 };
 
