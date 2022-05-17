@@ -8,7 +8,7 @@
 
 #define BOARD_WIDTH 7
 #define WINNING_STREAK 4
-#define SEARCH_DEPTH 6
+#define SEARCH_DEPTH 8
 #define SEARCH_CUTOFF 2
 
 #define debug

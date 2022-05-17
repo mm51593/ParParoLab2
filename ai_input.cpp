@@ -13,6 +13,7 @@
 #include <cstring>
 #include <mpi.h>
 #include <limits>
+#include <chrono>
 
 void send_task(Task *task, int dest)
 {
@@ -51,8 +52,13 @@ AIInput::AIInput(int search_depth, int search_cutoff) : search_depth(search_dept
 
 int AIInput::return_input()
 {
+    auto start = std::chrono::high_resolution_clock::now();
     int column = compute_move_1();
     std::cout << column << std::endl;
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+    std::cout << duration.count() << std::endl;
     return column;
 }
 
